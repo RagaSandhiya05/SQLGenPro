@@ -1,0 +1,26 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: sqlgenpro-db
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: sqlgenpro
+      POSTGRES_USER: sqlgenpro_user
+      POSTGRES_PASSWORD: sqlgenpro_local_2026
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - sqlgenpro_data:/var/lib/postgresql/data
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sqlgenpro_user -d sqlgenpro"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  sqlgenpro_data:

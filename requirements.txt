@@ -1,0 +1,10 @@
+streamlit
+groq
+python-dotenv
+sqlalchemy
+psycopg[binary]
+pandas
+plotly
+sqlglot
+graphviz
+pydantic
